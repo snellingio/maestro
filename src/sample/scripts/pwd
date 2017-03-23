@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+# @description Gets the current working directory
+set -e
+pwd

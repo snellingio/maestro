@@ -1,0 +1,19 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Snelling\Maestro\Console\InitCommand;
+use Snelling\Maestro\Console\ListTargetsCommand;
+use Snelling\Maestro\Console\ListScriptsCommand;
+use Snelling\Maestro\Console\RunScriptOnTargetCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application();
+
+$application->add(new InitCommand());
+$application->add(new ListTargetsCommand());
+$application->add(new ListScriptsCommand());
+$application->add(new RunScriptOnTargetCommand());
+
+$application->run();

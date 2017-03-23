@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+# @description Runs ls -al command
+set -e
+ls -al
