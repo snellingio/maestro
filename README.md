@@ -7,6 +7,23 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+Maestro is a simple IT automation tool to run bash scripts against local or remote servers. It will automatically pipe all output from any script run into your terminal.
+
+```
+KRAMER: You know you hurt the Maestro's feelings.
+
+JERRY: Oh what, because I didn't call him Maestro?
+
+KRAMER: That's right.
+
+JERRY: Ya know I feel a little funny calling somebody Maestro.
+
+KRAMER: Why?
+
+JERRY: Because it's a stupid thing to be called.
+```
+- Seinfeld, [Season 7 Episode 3](https://www.hulu.com/watch/807596#i0,p0,s7,d0)
+
 ## Install
 
 Via Composer
@@ -78,7 +95,7 @@ set -e
 ls -al
 ```
 
-Let's make a new script that gets a machine's hostname.
+Let's make a new script that gets a machine's hostname. Note how we include `set -e` at the top of the script to terminate output if there is an error.
 ``` bash
 ➜  echo '#!/usr/bin/bash
 # @description Gets the hostname of the machine
