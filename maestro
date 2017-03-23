@@ -1,11 +1,15 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/vendor/autoload.php';
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
+    require __DIR__ . '/vendor/autoload.php';
+} else {
+    require __DIR__ . '/../../autoload.php';
+}
 
 use Snelling\Maestro\Console\InitCommand;
-use Snelling\Maestro\Console\ListTargetsCommand;
 use Snelling\Maestro\Console\ListScriptsCommand;
+use Snelling\Maestro\Console\ListTargetsCommand;
 use Snelling\Maestro\Console\RunScriptOnTargetCommand;
 use Symfony\Component\Console\Application;
 
