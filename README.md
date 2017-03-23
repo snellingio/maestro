@@ -7,32 +7,104 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-
-## Structure
-
-If any of the following are applicable to your project, then the directory structure should follow industry best practises by being named the following.
-
-```
-bin/        
-config/
-src/
-tests/
-vendor/
-```
-
 ## Install
 
 Via Composer
 
 ``` bash
-$ composer require snelling/maestro
+composer global require snelling/maestro
 ```
+
+This is still a work in progress, and probably will need to be installed by hand until I have officially tagged this repository.
 
 ## Usage
 
-``` php
-
+Go to any directory and init a new maestro project with the command `maestro init`
+``` bash
+➜  maestro init
+Config file & scripts directory created!
 ```
+
+This command will create a new `maestro/` folder, and put a few things in there for you.
+``` bash
+➜  tree maestro
+maestro
+├── configuration.json
+└── scripts
+    ├── ls
+    └── pwd
+
+1 directory, 3 files
+```
+
+The `maestro/configuration.json` file is used to define targets. A target is a local or remote machine to run a command against.
+```json
+{
+  "targets": {
+    "local": "127.0.0.1",
+    "web": "user@192.168.1.1"
+  }
+}
+```
+
+You can list the available targets at any time by running `maestro targets`
+``` bash
+➜  maestro targets
+ ------- ------ -------------
+  Name    User   IP Address
+ ------- ------ -------------
+  local          127.0.0.1
+  web     user   192.168.1.1
+ ------- ------ -------------
+```
+
+The `maestro/scripts/` folder is where you will put any bash script that you would like to run against a target. By default we include two commands out of the box, `ls` and `pwd`. You can list all available scripts to run by running the command `maestro scripts`
+``` bash
+➜  maestro scripts
+ ------ ------------------------------------
+  Name   Description
+ ------ ------------------------------------
+  ls     Runs ls -al command
+  pwd    Gets the current working directory
+ ------ ------------------------------------
+```
+
+The name of the script is just the script filename. The description of the script is a bash comment inside the bash script. You need to add `# @description <your description>` to make a description show up in the `maestro scripts` command.
+``` bash
+➜  cat maestro/scripts/ls
+#!/usr/bin/bash
+# @description Runs ls -al command
+set -e
+ls -al
+```
+
+Let's make a new script that gets a machine's hostname.
+``` bash
+➜  echo '#!/usr/bin/bash
+# @description Gets the hostname of the machine
+set -e
+hostname' >maestro/scripts/hostname
+```
+
+Then, we can verify it comes up as valid script by re-running the `maestro scripts` command.
+``` bash
+➜  maestro scripts
+ ---------- ------------------------------------
+  Name       Description
+ ---------- ------------------------------------
+  hostname   Gets the hostname of the machine
+  ls         Runs ls -al command
+  pwd        Gets the current working directory
+ ---------- ------------------------------------
+```
+
+Finally, you can run script against a target by running `maestro run <script name> <target name>`
+``` bash
+➜  maestro run hostname local
+Running script hostname on 127.0.0.1
+[127.0.0.1]: localhost
+```
+
 
 ## Change log
 
